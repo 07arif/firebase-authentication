@@ -30,12 +30,13 @@ const Login = ({ user, setUser }) => {
         const userInfo = userCredential.user;
         setUser(userInfo);
         // console.log(usernf);
-        Swal.fire("Good job!", "You clicked the button!", "success");
+        Swal.fire("Welcome back!", "Your account Successfully Login !", "success");
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage)
         setError(errorMessage);
       });
   };
@@ -51,7 +52,7 @@ const Login = ({ user, setUser }) => {
           />
         </div>
         <div className="register-form  w-100">
-          <p>{error}</p>
+          
           <div className="input-box">
             <input
               onBlur={handleEmail}
@@ -66,6 +67,7 @@ const Login = ({ user, setUser }) => {
               placeholder="password"
             />
             <p className="link ">
+            <p className="text-danger">{error}</p>
               <Link to="/registration" className="text-decoration-none">
                 <small className="text-danger link">
                   are you new? please register

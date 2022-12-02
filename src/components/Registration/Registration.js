@@ -44,6 +44,7 @@ const Registration = ({ user, setUser }) => {
       setError("password should have Upper letter!!");
       return;
     }
+
     if (!/(?=.*[!#@$%&? "])/.test(e.target.value)) {
       setError("password should have special character!!");
       return;
@@ -129,7 +130,7 @@ const Registration = ({ user, setUser }) => {
         </div>
         <div className="register-form  w-100">
           <div className="input-box">
-            <p className="text-danger">{error}</p>
+           
             <form action="">
               <input
                 onBlur={handleName}
@@ -152,6 +153,7 @@ const Registration = ({ user, setUser }) => {
                 placeholder="password"
                 required
               />
+               <p className="text-danger">{error}</p>
               <p className="link ">
                 <Link to="/login" className="text-decoration-none">
                   <small className="text-danger link">
