@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import app from "../../Hook/firebaseConfig";
@@ -6,6 +6,7 @@ import "./Login.css";
 import Swal from "sweetalert2";
 import ResetPassword from "../ResetPassword/ResetPassword";
 import useFirebase from "../../Hook/useFirebase";
+import { FacebookAuthProvider } from "firebase/auth";
 
 const Login = ({ user, setUser }) => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,24 @@ const Login = ({ user, setUser }) => {
   const [error, setError] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const auth = getAuth(app);
+  const facebookprovider = new FacebookAuthProvider()
 
+  const handleFacebookLogin = ()=>{
+    signInWithPopup(auth,facebookprovider)
+    .then(result=>{
+      const user = result.user;
+      console.log(user)
+      setUser(user)
+    })
+  .catch((error)=>{
+    const ErrorMessage = error.message
+    console.error(ErrorMessage)
+  })    
+  }
   const { handleGoogleLogin, test2 } = useFirebase();
+
+
+
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -52,7 +69,7 @@ const Login = ({ user, setUser }) => {
           />
         </div>
         <div className="register-form  w-100">
-          
+
           <div className="input-box">
             <input
               onBlur={handleEmail}
@@ -67,7 +84,7 @@ const Login = ({ user, setUser }) => {
               placeholder="password"
             />
             <p className="link ">
-            <p className="text-danger">{error}</p>
+              <p className="text-danger">{error}</p>
               <Link to="/registration" className="text-decoration-none">
                 <small className="text-danger link">
                   are you new? please register
@@ -91,18 +108,32 @@ const Login = ({ user, setUser }) => {
               Login
             </button>
           </div>
-          <button
-            onClick={handleGoogleLogin}
-            className="btn mt-3 border d-flex align-items-center justify-content-evenly p-2 m-auto"
-          >
-            <img
-              className="w-25 image-fluid btn-image"
-              src="https://img.icons8.com/color/344/google-logo.png"
-              alt=""
-            />
-            <p className="fw-bold">Google SignIn</p>
-          </button>
+          <div className="d-flex">
+            <button
+              onClick={handleGoogleLogin}
+              className="btn mt-3 border d-flex align-items-center justify-content-evenly p-2 m-auto"
+            >
+              <img
+                className="w-25 image-fluid btn-image"
+                src="https://img.icons8.com/color/344/google-logo.png"
+                alt=""
+              />
+              <p className="fw-bold">Google SignIn</p>
+            </button>
+            <button
+              onClick={handleFacebookLogin}
+              className="btn mt-3 border d-flex align-items-center justify-content-evenly p-2 m-auto"
+            >
+              <img
+                className="w-25 image-fluid btn-image"
+                src="https://img.icons8.com/color/344/facebook-logo.png"
+                alt=""
+              />
+              <p className="fw-bold">Facebook SignIN</p>
+            </button>
+          </div>
         </div>
+
 
         <ResetPassword show={modalShow} onHide={() => setModalShow(false)} />
       </div>

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 
+
 const Header = ({ user, setUser }) => {
-  console.log(user);
+  // console.log(user);
+  
 
   return (
     <div>
@@ -11,7 +13,7 @@ const Header = ({ user, setUser }) => {
         <div className="logo ">
           <img
             className="logo-img"
-            src="https://i.ibb.co/TtRpKPP/doctor.png"
+            src={user.photoURL}
             alt=""
           />
         </div>
@@ -19,9 +21,9 @@ const Header = ({ user, setUser }) => {
           <Link to="/home" className="text-decoration-none">
             <li className="nav-link items  ms-3 text-info fw-bolder">Home</li>
           </Link>
-          <Link to="/login" className="text-decoration-none">
+          {/* <Link to="/login" className="text-decoration-none">
             <li className="nav-link items  ms-3 text-info fw-bolder">Login</li>
-          </Link>
+          </Link> */}
 
           {user ? (
             <li

@@ -67,7 +67,7 @@ const Registration = ({ user, setUser }) => {
           verify();
           // console.log(userInfo);
           setError("");
-          Swal.fire("Good job!", "You clicked the button!", "success");
+          Swal.fire("Registration Successfully!", "Your account is registered!", "success");
 
           // ...
         })
@@ -109,6 +109,7 @@ const Registration = ({ user, setUser }) => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
+        // console.log(user)
         setUser(user);
         // ...
       } else {
